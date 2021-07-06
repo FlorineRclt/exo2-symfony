@@ -15,6 +15,8 @@ class PageController extends AbstractController
      */
     public function home ()
     {
+      /*on va chercher la page à afficher pour la route accueil
+      et on l'interprete dans le navigateur*/
         Return $this->render ('accueil.html.twig');
     }
 

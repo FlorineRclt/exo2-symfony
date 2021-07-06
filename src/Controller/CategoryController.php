@@ -13,7 +13,7 @@ class CategoryController extends AbstractController
 
 
 
-
+//"base de données"
     private $categories = [
         1 => [
             "title" => "Politique",
@@ -58,6 +58,8 @@ class CategoryController extends AbstractController
      */
     public function categoryShow ($id)
     {
+        /*on va chercher la page html twig et on l'interprete dans le navigateur
+         on lui envoie les données du tableau pour pouvoi rtravailler dessus */
         return $this->render('category_show.html.twig', [
             'category' => $this->categories[$id]
         ]);
