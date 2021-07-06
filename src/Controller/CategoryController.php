@@ -59,7 +59,7 @@ class CategoryController extends AbstractController
     public function categoryShow ($id)
     {
         /*on va chercher la page html twig et on l'interprete dans le navigateur
-         on lui envoie les données du tableau pour pouvoi rtravailler dessus */
+         on lui envoie les données du tableau pour pouvoir travailler dessus */
         return $this->render('category_show.html.twig', [
             'category' => $this->categories[$id]
         ]);
