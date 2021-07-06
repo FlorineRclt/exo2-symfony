@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block metaTitle %}Liste de Catégories{% endblock metaTitle %}
+
+{% block main %}
+    {% for category in categories %}
+        {% if category.published %}
+            <article id="article">
+                <a href="{{ path('categoryShow', {'id': category.id}) }}">
+                    <h2>{{ category.title }}</h2>
+                </a>
+                <p>{{ category.content }}</p>
+                <p>{{ category.id }}</p>
+            </article>
+        {% endif %}
+    {% endfor %}
+{% endblock main %}

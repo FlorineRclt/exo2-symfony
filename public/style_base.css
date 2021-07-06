@@ -1,0 +1,80 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.resp {
+    width: 100%;
+    height: auto;
+}
+
+
+/****HEADER****/
+.header {
+    background-color: #d5702b;
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+#logo {
+    width: 50px;
+    transition: ease 0.3s;
+}
+
+#logo:hover {
+    transform: scale(1.2);
+}
+
+#menu {
+    width: 40px;
+    margin-top: 5px;
+    margin-right: 5px;
+    transition: ease 0.3s;
+}
+
+#menu:hover {
+    transform: scale(1.2);
+}
+
+/*****FOOTER*****/
+.footer {
+    background-color: #d5702b;
+    height: 10vh;
+}
+
+/****MAIN****/
+.main {
+    height: 80vh;
+    overflow: scroll;
+    font-family: "Poiret One";
+}
+
+
+
+/**PAGE ACCUEIL**/
+#accueil-main {
+    text-align: center;
+    padding-top: 30vh;
+}
+
+
+/**ARTICLE**/
+#article {
+    padding: 15px;
+    padding-bottom: 50px;
+    border: solid 1px wheat;
+    border-radius: 25px;
+    width: 50%;
+    margin: 10px;
+    line-height: 50px;
+}
+
+
+#page-cat {
+    padding: 15px;
+    line-height: 30px;
+}

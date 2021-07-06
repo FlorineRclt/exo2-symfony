@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block metaTitle %}{{ category.title }}{% endblock metaTitle %}
+
+{% block main %}
+    <div id="page-cat">
+        <h2>{{ category.title }}</h2>
+        <p>{{ category.content }}</p>
+        <p>{{ category.id }}</p>
+    </div>
+{% endblock main %}
