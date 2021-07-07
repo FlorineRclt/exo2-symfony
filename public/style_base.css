@@ -62,8 +62,8 @@
 }
 
 
-/**ARTICLE**/
-#article {
+/**CATEGORY**/
+#category {
     padding: 15px;
     padding-bottom: 50px;
     border: solid 1px wheat;
@@ -73,8 +73,24 @@
     line-height: 50px;
 }
 
-
 #page-cat {
+    padding: 15px;
+    line-height: 30px;
+}
+
+
+/**ARTICLE**/
+#article {
+    padding: 15px;
+    padding-bottom: 50px;
+    border: solid 1px #e7b3f5;
+    border-radius: 25px;
+    width: 50%;
+    margin: 10px;
+    line-height: 50px;
+}
+
+#page-article {
     padding: 15px;
     line-height: 30px;
 }
