@@ -4,14 +4,13 @@
 
 {% block main %}
     {% for category in categories %}     {# on applique à chaque item du tableau la suite du code #}
-        {% if category.published %}      {# on affiche les  catégories seulement si elles sont en valeur published=true #}
+{#        {% if category.published %}      #}{# on affiche les  catégories seulement si elles sont en valeur published=true #}
             <article id="category">
                 <a href="{{ path('categoryShow', {'id': category.id}) }}">
                     <h2>{{ category.title }}</h2>       {# on affiche dans un h2 le titre de la catégorie #}
                 </a>
-                <p>{{ category.content }}</p>
-                <p>{{ category.id }}</p>
+                <p>{{ category.description }}</p>
             </article>
-        {% endif %}
+{#        {% endif %}#}
     {% endfor %}
 {% endblock main %}
