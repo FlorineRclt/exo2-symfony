@@ -17,20 +17,16 @@ class Category
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $title;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $description;
-
     public function getId(): ?int
     {
         return $this->id;
     }
+
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $title;
 
     public function getTitle(): ?string
     {
@@ -43,6 +39,14 @@ class Category
 
         return $this;
     }
+
+
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
+
 
     public function getDescription(): ?string
     {
