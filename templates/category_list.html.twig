@@ -3,6 +3,7 @@
 {% block metaTitle %}Liste de Catégories{% endblock metaTitle %}
 
 {% block main %}
+    <h1 class="titre-cat">Il y a {{ categories | length }} catégories </h1>
     {% for category in categories %}     {# on applique à chaque item du tableau la suite du code #}
 {#        {% if category.published %}      #}{# on affiche les  catégories seulement si elles sont en valeur published=true #}
             <article id="category">

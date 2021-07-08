@@ -94,3 +94,26 @@
     padding: 15px;
     line-height: 30px;
 }
+
+
+/**TAG**/
+#tag {
+    display: flex;
+    width: fit-content;
+    color: black;
+    text-decoration: none;
+    border-radius: 25px;
+    padding: 10px;
+    text-align: center;
+    margin: 20px auto;
+}
+
+#page-tag {
+    width: fit-content;
+    color: black;
+    text-decoration: none;
+    border-radius: 25px;
+    padding: 10px;
+    text-align: center;
+    margin: 20px auto;
+}

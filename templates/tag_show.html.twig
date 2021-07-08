@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block metaTitle %}{{ tag.title }}{% endblock %}
+
+
+{% block main %}
+    <p id="page-tag" style="background-color: {{ tag.color }}">{{ tag.title }}</p>
+{% endblock %}
+
+
+
