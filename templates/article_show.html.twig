@@ -4,12 +4,17 @@
 
 
 {% block main %}
-    <div id="page-article">
+    <div class="page-article">
         <h2>{{ article.title }}</h2>
         <h3>Publié le : {{ article.createdAt | date('d-m-y') }}</h3>
         <p>{{ article.content }}</p>
         <p>Catégorie : {{ article.category.title }}</p>
-
+{#        <p class="tag" style="background-color: {{ article.tag.color }}">#}
+{#           {{ article.tag.title }}#}
+{#        </p>#}
+        <p class="tag" style="background-color: {{ article.tag.color }}">
+            <a href="{{ path('tagShow', {'id': article.tag.id}) }}">{{ article.tag.title }}</a>
+        </p>
 
     </div>
 

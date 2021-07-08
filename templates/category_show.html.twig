@@ -6,6 +6,11 @@
     <div id="page-cat">
         <h2>{{ category.title }}</h2>
         <p>{{ category.description }}</p>
-        <p>{{ category.id }}</p>
+        {% for article in category.articles %}
+            <div class="article">
+                <h3><a href="{{ path('articleShow', {'id': article.id}) }}">{{ article.title }}</a></h3>
+                <p>{{ article.content }}</p>
+            </div>
+        {% endfor %}
     </div>
 {% endblock main %}

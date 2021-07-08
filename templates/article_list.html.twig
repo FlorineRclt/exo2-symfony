@@ -7,7 +7,7 @@
     {% for article in articles %}
 
         {% if article.isPublished %}
-        <article id="article">
+        <article class="article">
             <a href="{{ path('articleShow', {'id': article.id}) }}">
                 <h2>{{ article.title }}</h2>
             </a>

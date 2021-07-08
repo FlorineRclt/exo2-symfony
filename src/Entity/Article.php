@@ -47,9 +47,32 @@ class Article
     //on crée la relation avec l'entité category
     //en ManyToOne, l'article peut avoir une seule catégorie mais la catégorie peut avoir plusieurs articles
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="articles")
      */
     private $category;
+
+    /**
+     * @ORM\ManyToOne (targetEntity="App\Entity\Tag", inversedBy="articles")
+     */
+    private $tag;
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
+
+    /**
+     * @param mixed $tag
+     */
+    public function setTag($tag): void
+    {
+        $this->tag = $tag;
+    }
 
 
 

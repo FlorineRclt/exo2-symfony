@@ -84,7 +84,7 @@
 
 
 /**ARTICLE**/
-#article {
+.article {
     padding: 15px;
     padding-bottom: 50px;
     border: solid 1px #e7b3f5;
@@ -94,14 +94,14 @@
     line-height: 50px;
 }
 
-#page-article {
+.page-article {
     padding: 15px;
     line-height: 30px;
 }
 
 
 /**TAG**/
-#tag {
+.tag {
     display: flex;
     width: fit-content;
     color: black;
@@ -112,7 +112,7 @@
     margin: 20px auto;
 }
 
-#page-tag {
+.page-tag {
     width: fit-content;
     color: black;
     text-decoration: none;

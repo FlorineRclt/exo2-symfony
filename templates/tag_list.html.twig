@@ -5,7 +5,7 @@
 
 {% block main %}
     {% for tag in tags %}
-        <a id="tag" style="background-color: {{ tag.color }}" href="{{ path('tagShow', {'id': tag.id}) }}">{{tag.title}}</a>
+        <a class="tag" style="background-color: {{ tag.color }}" href="{{ path('tagShow', {'id': tag.id}) }}">{{tag.title}}</a>
     {% endfor %}
 {% endblock %}
 

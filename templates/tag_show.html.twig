@@ -4,7 +4,13 @@
 
 
 {% block main %}
-    <p id="page-tag" style="background-color: {{ tag.color }}">{{ tag.title }}</p>
+    <p class="page-tag" style="background-color: {{ tag.color }}">{{ tag.title }}</p>
+    {% for article in tag.articles %}
+        <div class="article">
+            <h3><a href="{{ path('articleShow', {'id': article.id}) }}">{{ article.title }}</a></h3>
+            <p>{{ article.content }}</p>
+        </div>
+    {% endfor %}
 {% endblock %}
 
 

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,16 +18,42 @@ class Category
      */
     private $id;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
 
     /**
      * @ORM\Column(type="string")
      */
     private $title;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="category")
+     */
+    private $articles;
+
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getArticles()
+    {
+        return $this->articles;
+    }
+
+
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function getTitle(): ?string
     {
@@ -39,13 +66,6 @@ class Category
 
         return $this;
     }
-
-
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $description;
 
 
     public function getDescription(): ?string
