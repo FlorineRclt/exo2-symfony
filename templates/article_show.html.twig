@@ -8,6 +8,7 @@
         <h2>{{ article.title }}</h2>
         <h3>Publié le : {{ article.createdAt | date('d-m-y') }}</h3>
         <p>{{ article.content }}</p>
+        <p>Catégorie : {{ article.category.title }}</p>
 
 
     </div>

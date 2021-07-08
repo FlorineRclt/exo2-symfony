@@ -13,6 +13,7 @@
             </a>
             <p>{{ article.content }}</p>
             <p>{{ article.createdAt | date('d-m-y') }}</p>
+            <p class="italic">{{ article.category.title }}</p>
         </article>
         {% endif %}
 

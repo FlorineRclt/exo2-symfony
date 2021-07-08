@@ -19,6 +19,58 @@ class Article
      */
     private $id;
 
+
+    /**
+     * @ORM\Column (type="string")
+     */
+    private $title;
+
+
+    /**
+     * @ORM\Column (type="text")
+     */
+    private $content;
+
+
+    /**
+     * @ORM\Column (type="datetime")
+     */
+    private $createdAt;
+
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isPublished;
+
+
+    //on crée la relation avec l'entité category
+    //en ManyToOne, l'article peut avoir une seule catégorie mais la catégorie peut avoir plusieurs articles
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     */
+    private $category;
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category): void
+    {
+        $this->category = $category;
+    }
+
+
+
     /**
      * @return mixed
      */
@@ -34,13 +86,6 @@ class Article
     {
         $this->id = $id;
     }
-
-
-
-    /**
-     * @ORM\Column (type="string")
-     */
-    private $title;
 
 
     /**
@@ -60,13 +105,6 @@ class Article
     }
 
 
-
-    /**
-     * @ORM\Column (type="text")
-     */
-    private $content;
-
-
     /**
      * @return mixed
      */
@@ -82,14 +120,6 @@ class Article
     {
         $this->content = $content;
     }
-
-
-
-
-    /**
-     * @ORM\Column (type="datetime")
-     */
-    private $createdAt;
 
 
     /**
@@ -108,13 +138,6 @@ class Article
         $this->createdAt = $createdAt;
     }
 
-
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isPublished;
-
     public function getIsPublished(): ?bool
     {
         return $this->isPublished;
@@ -126,11 +149,6 @@ class Article
 
         return $this;
     }
-
-
-
-
-
 
 
 }

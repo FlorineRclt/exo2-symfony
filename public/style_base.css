@@ -40,6 +40,10 @@
     transform: scale(1.2);
 }
 
+.italic {
+    font-style: italic;
+}
+
 /*****FOOTER*****/
 .footer {
     background-color: #d5702b;
