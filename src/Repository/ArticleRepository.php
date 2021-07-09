@@ -28,7 +28,15 @@ class ArticleRepository extends ServiceEntityRepository
         //on défini la requête pour aller chercher l'article contenant le terme recherché
         $query = $queryBuilder
             -> select('article')
-            -> where('article.content LIKE :term')
+
+            ->leftJoin('article.category', 'category')
+            ->leftJoin('article.tag', 'tag')
+
+            ->where('article.content LIKE :term')
+            ->orWhere('article.title LIKE :term')
+            ->orWhere('category.title LIKE :term')
+            ->orWhere('tag.title LIKE :term')
+
             //Le setParameter est une sécurité, permet de filtrer ce qui est envoyé par l'utilisateur
             // afin d'éviter le contenu dangereux (requêtes SQL)
             -> setParameter('term', '%'.$term.'%')
