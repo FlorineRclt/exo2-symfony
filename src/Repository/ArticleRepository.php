@@ -19,6 +19,39 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
+
+    public function searchByTerm($term)
+    {
+        //createQueryBuilder permet de créer des requêtes SQL à partir de php
+        $queryBuilder = $this->createQueryBuilder('article');
+
+        //on défini la requête pour aller chercher l'article contenant le terme recherché
+        $query = $queryBuilder
+            -> select('article')
+            -> where('article.content LIKE :term')
+            //Le setParameter est une sécurité, permet de filtrer ce qui est envoyé par l'utilisateur
+            // afin d'éviter le contenu dangereux (requêtes SQL)
+            -> setParameter('term', '%'.$term.'%')
+            -> getQuery();
+
+        //on renvoie le resultat de la recherche
+        return $query -> getResult();
+
+        //Ensuite on va dans l'ArticleController pour créer la méthode qui permettra de récupérer
+        // et afficher les résultats obtenus
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */

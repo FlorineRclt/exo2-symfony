@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block metaTitle %}Recherche{% endblock %}
+
+{% block main %}
+    <h1>Il y a {{ articles | length }} articles correspondant à : "{{ term }}" </h1>
+
+    {% for article in articles %}
+
+        {% if article.isPublished %}
+            <article class="article">
+                <a href="{{ path('articleShow', {'id': article.id}) }}">
+                    <h2>{{ article.title }}</h2>
+                </a>
+                <p>{{ article.content }}</p>
+                <p>{{ article.createdAt | date('d-m-y') }}</p>
+                <p class="italic">{{ article.category.title }}</p>
+            </article>
+        {% endif %}
+
+    {% endfor %}
+
+{% endblock %}
+
+
+
