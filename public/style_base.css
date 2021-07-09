@@ -57,7 +57,10 @@
     font-family: "Poiret One";
 }
 
-
+.lien {
+    text-decoration: none;
+    color: black;
+}
 
 /**PAGE ACCUEIL**/
 #accueil-main {

@@ -13,7 +13,7 @@
 {#           {{ article.tag.title }}#}
 {#        </p>#}
         <p class="tag" style="background-color: {{ article.tag.color }}">
-            <a href="{{ path('tagShow', {'id': article.tag.id}) }}">{{ article.tag.title }}</a>
+            <a class="lien" href="{{ path('tagShow', {'id': article.tag.id}) }}">{{ article.tag.title }}</a>
         </p>
 
     </div>

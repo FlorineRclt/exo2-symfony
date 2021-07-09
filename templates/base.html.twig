@@ -15,12 +15,17 @@
 <body>
 
 <header class="header">
-    <div id="logo">
-        <a href="{{ path ('home') }}"><img src="{{ asset('img/construction.png') }}" alt="" class="resp"></a>
-    </div>
-    <div id="menu">
-        <a href="{{ path ('categoryList') }}"><img src="{{ asset('img/menu.png') }}" alt="" class="resp"></a>
-    </div>
+    <nav>
+        <div id="logo">
+            <a href="{{ path ('home') }}"><img src="{{ asset('img/construction.png') }}" alt="" class="resp"></a>
+        </div>
+        <form action="{{ path('search') }}" method="get"></form>
+        <input type="text" name="q" placeholder="Rechercher...">
+        <input type="submit" value="Rechercher">
+        <div id="menu">
+            <a href="{{ path ('categoryList') }}"><img src="{{ asset('img/menu.png') }}" alt="" class="resp"></a>
+        </div>
+    </nav>
 </header>
 
 
