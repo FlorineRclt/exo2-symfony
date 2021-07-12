@@ -4,7 +4,11 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Tag;
 use App\Repository\ArticleRepository;
+use App\Repository\CategoryRepository;
+use App\Repository\TagRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +21,11 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article/insert", name="articleInsert")
      */
-    public function insertArticle(EntityManagerInterface $entityManager)
+    public function insertArticle(
+        EntityManagerInterface $entityManager,
+        CategoryRepository $categoryRepository,
+        TagRepository $tagRepository
+    )
     {
         // J'utilise l'entité Article, pour créer un nouvel article en bdd
         // une instance de l'entité Article = un enregistrement d'article en bdd
@@ -30,6 +38,27 @@ class ArticleController extends AbstractController
         $article->setIsPublished(true);
         $article->setCreatedAt(new \DateTime('NOW'));
 
+        // je récupère la catégorie dont l'id est 1 en bdd
+        // doctrine me créé une instance de l'entité category avec les infos de la catégorie de la bdd
+        $category = $categoryRepository->find(1);
+
+        // j'associé l'instance de l'entité categorie récupérée, à l'instance de l'entité article que je suis
+        // en train de créer
+        $article->setCategory($category);
+
+        $tag = $tagRepository->findOneBy(['title' => 'info']);
+
+        if (is_null($tag)) {
+            $tag = new Tag();
+            $tag->setTitle('info');
+            $tag->setColor('blue');
+        }
+
+        $entityManager->persist($tag);
+
+        $article->setTag($tag);
+
+
         // je prends toutes les entités créées (ici une seule) et je les "pré-sauvegarde"
         $entityManager->persist($article);
 
@@ -37,8 +66,25 @@ class ArticleController extends AbstractController
         $entityManager->flush();
 
         dump('ok'); die;
+    }
 
 
+    /**
+     * @Route("/article/update", name="articleUpdate")
+     */
+    public function articleUpdate(EntityManagerInterface $entityManager, ArticleRepository $articleRepository)
+    {
+        //on va chercher l'article que l'on veut modifier à l'aide son id et de la méthode find
+        $article = $articleRepository->find(4);
+
+        //on modifie le paramètre qui doit être mis à jour, dans ce cas : le titre
+        $article->setTitle('Quatrième article');
+
+        //on pré-sauvergarde puis on envoie l'entité dans la base de données
+        $entityManager->persist($article);
+        $entityManager->flush();
+
+        dump('ok update'); die;
     }
 
 
