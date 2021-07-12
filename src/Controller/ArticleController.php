@@ -70,15 +70,16 @@ class ArticleController extends AbstractController
 
 
     /**
-     * @Route("/article/update", name="articleUpdate")
+     * @Route("/articles/update/{id}", name="articleUpdate")
      */
-    public function articleUpdate(EntityManagerInterface $entityManager, ArticleRepository $articleRepository)
+    public function articleUpdate($id, EntityManagerInterface $entityManager, ArticleRepository $articleRepository)
     {
         //on va chercher l'article que l'on veut modifier à l'aide son id et de la méthode find
-        $article = $articleRepository->find(4);
+        //en utilisant la wildcard dans l'URL
+        $article = $articleRepository->find($id);
 
         //on modifie le paramètre qui doit être mis à jour, dans ce cas : le titre
-        $article->setTitle('Quatrième article');
+        $article->setTitle('Troisième article');
 
         //on pré-sauvergarde puis on envoie l'entité dans la base de données
         $entityManager->persist($article);
@@ -87,6 +88,25 @@ class ArticleController extends AbstractController
         dump('ok update'); die;
     }
 
+
+    /**
+     * @Route("/articles/delete/{id}", name="articleDelete")
+     */
+    public function deleteArticle($id, ArticleRepository $articleRepository, EntityManagerInterface $entityManager)
+    {
+        //on va chercher l'article que l'on veut modifier à l'aide son id et de la méthode find
+        //en utilisant la wildcard dans l'URL
+        $article = $articleRepository->find($id);
+
+        //on supprime et on traduit l'ordre en requete SQL via le flush
+        $entityManager->remove($article);
+        $entityManager->flush();
+
+        //on redirige l'utilisateur vers la page articleList une fois que les opérations sont terminées
+        return $this->redirectToRoute("articleList");
+
+
+    }
 
     /**
      * @Route("/articles", name="articleList")
