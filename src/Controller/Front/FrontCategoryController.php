@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Controller;
+namespace App\Controller\Front;
 
 
 use App\Repository\CategoryRepository;
@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-class CategoryController extends AbstractController
+class FrontCategoryController extends AbstractController
 {
 
     /**
@@ -20,7 +20,7 @@ class CategoryController extends AbstractController
     {
         $categories = $categoryRepository->findAll();
 
-        return $this->render('category_list.html.twig', [
+        return $this->render('Front/category_list.html.twig', [
             'categories' => $categories
         ]);
     }
@@ -41,7 +41,7 @@ class CategoryController extends AbstractController
 
         /*on va chercher la page html twig et on l'interprete dans le navigateur
          on lui envoie les données du tableau pour pouvoir travailler dessus */
-        return $this->render('category_show.html.twig', [
+        return $this->render('Front/category_show.html.twig', [
             'category' => $category
         ]);
     }

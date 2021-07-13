@@ -1,0 +1,26 @@
+{% extends 'Admin/admin_base.html.twig' %}
+
+{% block metaTitle %}Liste des tags{% endblock %}
+
+
+{% block main %}
+
+    <a href="{{ path('adminTagInsert') }}" >
+        <p class="btn-ajout">Ajouter un tag</p>
+    </a>
+
+    {% for tag in tags %}
+        <div class="tag-line">
+            <a class="tag" style="background-color: {{ tag.color }}" href="{{ path('adminTagShow', {'id': tag.id}) }}">{{tag.title}}</a>
+            <a class="tag-modif-suppr" href="{{ path('adminTagUpdate', {'id': tag.id}) }}">
+                <p>Modifier</p>
+            </a>
+            <a class="tag-modif-suppr ml-10" href="{{ path('adminTagDelete', {'id': tag.id}) }}">
+                <p>Supprimer</p>
+            </a>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+
+

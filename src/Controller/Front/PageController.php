@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Controller;
+namespace App\Controller\Front;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,7 +17,7 @@ class PageController extends AbstractController
     {
       /*on va chercher la page à afficher pour la route accueil
       et on l'interprete dans le navigateur*/
-        Return $this->render ('accueil.html.twig');
+        Return $this->render ('Front/accueil.html.twig');
     }
 
 }

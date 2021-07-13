@@ -1,0 +1,38 @@
+{% extends 'Admin/admin_base.html.twig' %}
+
+{% block metaTitle %}Liste d'articles{% endblock metaTitle %}
+
+{% block main %}
+
+    <a href="{{ path('adminArticleInsert') }}" >
+        <p class="btn-ajout">Ajouter un article</p>
+    </a>
+
+    <div class="articles-container">
+
+    {% for article in articles %}
+
+        {% if article.isPublished %}
+        <article class="article">
+            <a href="{{ path('adminArticleShow', {'id': article.id}) }}">
+                <h2>{{ article.title }}</h2>
+            </a>
+            <p>{{ article.content }}</p>
+            <p>{{ article.createdAt | date('d-m-y') }}</p>
+            <p class="italic">{{ article.category.title }}</p>
+            <a href="{{ path('adminArticleUpdate', {'id': article.id}) }}">
+                <p>Modifier</p>
+            </a>
+            <a href="{{ path('adminArticleDelete', {'id': article.id}) }}">
+                <p>Supprimer</p>
+            </a>
+        </article>
+        {% endif %}
+
+    {% endfor %}
+
+    </div>
+
+
+
+{% endblock main %}

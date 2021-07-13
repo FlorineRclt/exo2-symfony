@@ -1,17 +1,32 @@
-{% extends 'base.html.twig' %}
+{% extends 'Admin/admin_base.html.twig' %}
 
 {% block metaTitle %}Liste de Catégories{% endblock metaTitle %}
 
 {% block main %}
+
+    <a href="{{ path('adminCategoryInsert') }}" >
+        <p class="btn-ajout">Ajouter une categorie</p>
+    </a>
+
     <h1 class="titre-cat">Il y a {{ categories | length }} catégories </h1>
+
+    <div class="categories-container">
     {% for category in categories %}     {# on applique à chaque item du tableau la suite du code #}
 {#        {% if category.published %}      #}{# on affiche les  catégories seulement si elles sont en valeur published=true #}
             <article id="category">
-                <a href="{{ path('categoryShow', {'id': category.id}) }}">
+                <a href="{{ path('adminCategoryShow', {'id': category.id}) }}">
                     <h2>{{ category.title }}</h2>       {# on affiche dans un h2 le titre de la catégorie #}
                 </a>
                 <p>{{ category.description }}</p>
+                <a href="{{ path('adminCategoryUpdate', {'id': category.id}) }}">
+                    <p>Modifier</p>
+                </a>
+                <a href="{{ path('adminCategoryDelete', {'id': category.id}) }}">
+                    <p>Supprimer</p>
+                </a>
             </article>
 {#        {% endif %}#}
     {% endfor %}
+    </div>
+
 {% endblock main %}

@@ -1,0 +1,17 @@
+{% extends 'Admin/admin_base.html.twig' %}
+
+{% block metaTitle %}{{ tag.title }}{% endblock %}
+
+
+{% block main %}
+    <p class="page-tag" style="background-color: {{ tag.color }}">{{ tag.title }}</p>
+    {% for article in tag.articles %}
+        <div class="article">
+            <h3><a href="{{ path('adminArticleShow', {'id': article.id}) }}">{{ article.title }}</a></h3>
+            <p>{{ article.content }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+
+
