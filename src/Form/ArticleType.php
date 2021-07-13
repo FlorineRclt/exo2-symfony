@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Article;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,6 +19,7 @@ class ArticleType extends AbstractType
             ->add('isPublished')
 //            ->add('category')
 //            ->add('tag')
+            ->add('submit', SubmitType::class)
         ;
     }
 

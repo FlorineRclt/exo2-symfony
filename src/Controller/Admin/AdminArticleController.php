@@ -5,11 +5,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Article;
 use App\Form\ArticleType;
-use App\Entity\Tag;
 use App\Repository\ArticleRepository;
-use App\Repository\CategoryRepository;
-use App\Repository\TagRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,15 +15,28 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminArticleController extends AbstractController
 {
 
-
+//--CREATION D'UN FORMULAIRE POUR INSERER UN NOUVEL ARTICLE (de façon dynamique)--
     /**
      * @Route("/admin/article/insert", name="adminArticleInsert")
      */
-    public function insertArticle()
+    public function insertArticle(Request $request, EntityManagerInterface $entityManager)
     {
         $article = new Article();
 
+        // on génère le formulaire en utilisant le gabarit + une instance de l'entité Article
         $articleForm = $this->createForm(ArticleType::class, $article);
+
+        // on lie le formulaire aux données de POST (aux données envoyées en POST)
+        $articleForm->handleRequest($request);
+
+        // si le formulaire à été posté et qu'il est valide (que tous les champs
+        // obligatoires sont remplis correctement), alors on enregistre l'article crée dans la bdd
+        if ($articleForm->isSubmitted() && $articleForm->isValid()) {
+            $entityManager->persist($article);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('adminArticleList');
+        }
 
         return $this->render('admin/admin_insert.html.twig', [
             'articleForm' => $articleForm->createView()
