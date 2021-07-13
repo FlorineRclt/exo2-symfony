@@ -4,6 +4,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Article;
+use App\Form\ArticleType;
 use App\Entity\Tag;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
@@ -18,54 +19,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminArticleController extends AbstractController
 {
 
+
     /**
      * @Route("/admin/article/insert", name="adminArticleInsert")
      */
-    public function insertArticle(
-        EntityManagerInterface $entityManager,
-        CategoryRepository $categoryRepository,
-        TagRepository $tagRepository
-    )
+    public function insertArticle()
     {
-        // J'utilise l'entité Article, pour créer un nouvel article en bdd
-        // une instance de l'entité Article = un enregistrement d'article en bdd
         $article = new Article();
 
-        // j'utilise les setters de l'entité Article pour renseigner les valeurs
-        // des colonnes
-        $article->setTitle('Titre article depuis le controleur');
-        $article->setContent('blablabla');
-        $article->setIsPublished(true);
-        $article->setCreatedAt(new \DateTime('NOW'));
+        $articleForm = $this->createForm(ArticleType::class, $article);
 
-        // je récupère la catégorie dont l'id est 1 en bdd
-        // doctrine me créé une instance de l'entité category avec les infos de la catégorie de la bdd
-        $category = $categoryRepository->find(1);
+        return $this->render('admin/admin_insert.html.twig', [
+            'articleForm' => $articleForm->createView()
+        ]);
 
-        // j'associé l'instance de l'entité categorie récupérée, à l'instance de l'entité article que je suis
-        // en train de créer
-        $article->setCategory($category);
-
-        $tag = $tagRepository->findOneBy(['title' => 'info']);
-
-        if (is_null($tag)) {
-            $tag = new Tag();
-            $tag->setTitle('info');
-            $tag->setColor('blue');
-        }
-
-        $entityManager->persist($tag);
-
-        $article->setTag($tag);
-
-
-        // je prends toutes les entités créées (ici une seule) et je les "pré-sauvegarde"
-        $entityManager->persist($article);
-
-        // je récupère toutes les entités pré-sauvegardées et je les insère en BDD
-        $entityManager->flush();
-
-        return $this->redirectToRoute("adminArticleList");
     }
 
 
@@ -162,4 +129,61 @@ class AdminArticleController extends AbstractController
             'term' => $term
         ]);
     }
+
+
+
+    ///---METHODE INSERT STATIQUE (pour comprendre le fonctionnement mais pas utile dans un site dynamique)---///
+
+//    /**
+//     * @Route("/admin/article/insertStatic", name="adminArticleInsertStatic")
+//     */
+//    public function insertArticle(
+//        EntityManagerInterface $entityManager,
+//        CategoryRepository $categoryRepository,
+//        TagRepository $tagRepository
+//    )
+//    {
+//        // J'utilise l'entité Article, pour créer un nouvel article en bdd
+//        // une instance de l'entité Article = un enregistrement d'article en bdd
+//        $article = new Article();
+//
+//        // j'utilise les setters de l'entité Article pour renseigner les valeurs
+//        // des colonnes
+//        $article->setTitle('Titre article depuis le controleur');
+//        $article->setContent('blablabla');
+//        $article->setIsPublished(true);
+//        $article->setCreatedAt(new \DateTime('NOW'));
+//
+//        // je récupère la catégorie dont l'id est 1 en bdd
+//        // doctrine me créé une instance de l'entité category avec les infos de la catégorie de la bdd
+//        $category = $categoryRepository->find(1);
+//
+//        // j'associé l'instance de l'entité categorie récupérée, à l'instance de l'entité article que je suis
+//        // en train de créer
+//        $article->setCategory($category);
+//
+//        $tag = $tagRepository->findOneBy(['title' => 'info']);
+//
+//        if (is_null($tag)) {
+//            $tag = new Tag();
+//            $tag->setTitle('info');
+//            $tag->setColor('blue');
+//        }
+//
+//        $entityManager->persist($tag);
+//
+//        $article->setTag($tag);
+//
+//
+//        // je prends toutes les entités créées (ici une seule) et je les "pré-sauvegarde"
+//        $entityManager->persist($article);
+//
+//        // je récupère toutes les entités pré-sauvegardées et je les insère en BDD
+//        $entityManager->flush();
+//
+//        return $this->redirectToRoute("adminArticleList");
+//    }
+
+
+
 }
