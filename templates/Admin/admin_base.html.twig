@@ -23,9 +23,9 @@
             <input type="text" name="q" placeholder="Rechercher...">
             <input type="submit" value="Rechercher">
         </form>
-        <a href="{{ path('adminArticleList') }}">Gestion des articles</a>
-        <a href="{{ path('adminCategoryList') }}">Gestion des catégories</a>
-        <a href="{{ path('adminTagList') }}">Gestion des tags</a>
+        <a class="lien-text" href="{{ path('adminArticleList') }}">Gestion des articles</a>
+        <a class="lien-text" href="{{ path('adminCategoryList') }}">Gestion des catégories</a>
+        <a class="lien-text" href="{{ path('adminTagList') }}">Gestion des tags</a>
         <div id="menu">
             <a href="{{ path ('adminCategoryList') }}"><img src="{{ asset('img/menu.png') }}" alt="" class="resp"></a>
         </div>
@@ -34,7 +34,7 @@
 
 
 
-<main class="main">
+<main class="main">    {# à mettre plutot dans le block main sur chaque twig pour plus de facilités de modifications #}
 {% block main %}{% endblock main %}
 </main>
 

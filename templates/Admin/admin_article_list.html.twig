@@ -12,7 +12,7 @@
 
     {% for article in articles %}
 
-        {% if article.isPublished %}
+{#        {% if article.isPublished %}#}{#  pas utile du coté admin#}
         <article class="article">
             <a href="{{ path('adminArticleShow', {'id': article.id}) }}">
                 <h2>{{ article.title }}</h2>
@@ -27,7 +27,7 @@
                 <p>Supprimer</p>
             </a>
         </article>
-        {% endif %}
+{#        {% endif %}#}
 
     {% endfor %}
 

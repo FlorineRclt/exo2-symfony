@@ -1,0 +1,37 @@
+{% extends 'Admin/admin_base.html.twig' %}
+
+{% block metaTitle %}Création de Catégorie{% endblock metaTitle%}
+
+
+
+{% block main %}
+
+    <h1 class="h1-ajout">Ajouter une catégorie</h1>
+
+    {{ form_start(categoryForm) }}
+
+        <div class="form-group">
+            {{ form_label(categoryForm.title, 'Titre', {'label_attr': {'class': 'form_category_title_label'}}) }}
+            {{ form_widget(categoryForm.title, {'attr': {'class': 'form_category_title-input'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(categoryForm.description, 'Description', {'label_attr': {'class': 'form_category_content_label'}}) }}
+            {{ form_widget(categoryForm.description, {'attr': {'class': 'form-category-content-input mb-15', 'placeholder': 'Remplissez la description'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_widget(categoryForm.submit, {'attr': {'class': 'btn-submit', }, 'label': 'Ajouter'}) }}
+        </div>
+
+
+
+    {{ form_end(categoryForm) }}
+
+
+
+
+{% endblock main%}
+
+
+

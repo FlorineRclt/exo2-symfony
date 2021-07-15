@@ -6,10 +6,13 @@ namespace App\Controller\Admin;
 
 use App\Entity\Category;
 use App\Entity\Tag;
+use App\Form\CategoryType;
+use App\Form\TagType;
 use App\Repository\CategoryRepository;
 use App\Repository\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,46 +22,64 @@ class AdminTagController extends AbstractController
     /**
      * @Route("/admin/tag/insert", name="adminTagInsert")
      */
-    public function insertTag(EntityManagerInterface $entityManager)
+    public function insertTag(EntityManagerInterface $entityManager, Request $request)
     {
         // J'utilise l'entité Tag, pour créer un nouveau tag en bdd
         // une instance de l'entité Tag = un enregistrement de tag en bdd
         $tag = new Tag();
 
-        // j'utilise les setters de l'entité Tag pour renseigner les valeurs
-        // des colonnes
-        $tag->setTitle('Nouveau tag');
-        $tag->setColor('lightseagreen');
+        // on génère le formulaire en utilisant le gabarit + une instance de l'entité Tag
+        $tagForm = $this->createForm(TagType::class, $tag);
 
+        // on lie le formulaire aux données de POST (aux données envoyées en POST)
+        $tagForm->handleRequest($request);
 
-        // je prends toutes les entités créées (ici une seule) et je les "pré-sauvegarde"
-        $entityManager->persist($tag);
+        // si le formulaire à été posté et qu'il est valide (que tous les champs
+        // obligatoires sont remplis correctement), alors on enregistre le tag crée dans la bdd
+        if ($tagForm->isSubmitted() && $tagForm->isValid()) {
+            $entityManager->persist($tag);
+            $entityManager->flush();
 
-        // je récupère toutes les entités pré-sauvegardées et je les insère en BDD
-        $entityManager->flush();
+            return $this->redirectToRoute("adminTagList");
+        }
 
-        return $this->redirectToRoute("adminTagList");
+        return $this->render('admin/admin_insert_tag.html.twig', [
+            'tagForm' => $tagForm->createView()
+        ]);
     }
 
 
     /**
      * @Route("/admin/tags/update/{id}", name="adminTagUpdate")
      */
-    public function tagUpdate($id, EntityManagerInterface $entityManager, TagRepository $tagRepository)
+    public function tagUpdate(
+        $id,
+        EntityManagerInterface $entityManager,
+        TagRepository $tagRepository,
+        Request $request)
     {
         //on va chercher le tag que l'on veut modifier à l'aide son id et de la méthode find
         //en utilisant la wildcard dans l'URL
         $tag = $tagRepository->find($id);
 
-        //on modifie le paramètre qui doit être mis à jour, dans ce cas : le titre
-        $tag->setTitle('Tag mis à jour');
-        $tag->setColor('lightpink');
+        // on génère le formulaire en utilisant le gabarit + une instance de l'entité Tag
+        $tagForm = $this->createForm(TagType::class, $tag);
 
-        //on pré-sauvergarde puis on envoie l'entité dans la base de données
-        $entityManager->persist($tag);
-        $entityManager->flush();
+        // on lie le formulaire aux données de POST (aux données envoyées en POST)
+        $tagForm->handleRequest($request);
 
-        return $this->redirectToRoute("adminTagList");
+        // si le formulaire à été posté et qu'il est valide (que tous les champs
+        // obligatoires sont remplis correctement), alors on enregistre le tag crée dans la bdd
+        if ($tagForm->isSubmitted() && $tagForm->isValid()) {
+            $entityManager->persist($tag);
+            $entityManager->flush();
+
+            return $this->redirectToRoute("adminTagList");
+        }
+
+        return $this->render('admin/admin_insert_tag.html.twig', [
+            'tagForm' => $tagForm->createView()
+        ]);
     }
 
 

@@ -6,9 +6,12 @@ namespace App\Controller\Admin;
 
 
 use App\Entity\Category;
+use App\Form\ArticleType;
+use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,45 +24,68 @@ class AdminCategoryController extends AbstractController
      */
     public function insertCategory(
         EntityManagerInterface $entityManager,
-        CategoryRepository $categoryRepository)
+        Request $request )
     {
         // J'utilise l'entité Category, pour créer une nouvelle categorie en bdd
         // une instance de l'entité Category = un enregistrement de categorie en bdd
         $category = new Category();
 
-        // j'utilise les setters de l'entité Category pour renseigner les valeurs
-        // des colonnes
-        $category->setTitle('Nouvelle catégorie');
-        $category->setDescription('Tous les articles de la nouvelle catégorie');
+        // on génère le formulaire en utilisant le gabarit + une instance de l'entité Category
+        $categoryForm = $this->createForm(CategoryType::class, $category);
 
+        // on lie le formulaire aux données de POST (aux données envoyées en POST)
+        $categoryForm->handleRequest($request);
 
-        // je prends toutes les entités créées (ici une seule) et je les "pré-sauvegarde"
-        $entityManager->persist($category);
+        // si le formulaire à été posté et qu'il est valide (que tous les champs
+        // obligatoires sont remplis correctement), alors on enregistre la catégorie créee dans la bdd
+        if ($categoryForm->isSubmitted() && $categoryForm->isValid()) {
+            $entityManager->persist($category);
+            $entityManager->flush();
 
-        // je récupère toutes les entités pré-sauvegardées et je les insère en BDD
-        $entityManager->flush();
+            return $this->redirectToRoute("adminCategoryList");
+        }
 
-        return $this->redirectToRoute("adminCategoryList");
+        return $this->render('admin/admin_insert_category.html.twig', [
+            'categoryForm' => $categoryForm->createView()
+        ]);
     }
 
 
     /**
      * @Route("/admin/categories/update/{id}", name="adminCategoryUpdate")
      */
-    public function categoryUpdate($id, EntityManagerInterface $entityManager, CategoryRepository $categoryRepository)
+    public function categoryUpdate(
+        $id,
+        EntityManagerInterface $entityManager,
+        CategoryRepository $categoryRepository,
+        Request $request)
     {
         //on va chercher la catégorie que l'on veut modifier à l'aide son id et de la méthode find
         //en utilisant la wildcard dans l'URL
         $category = $categoryRepository->find($id);
 
-        //on modifie le paramètre qui doit être mis à jour, dans ce cas : le titre
-        $category->setTitle('Categorie mise à jour');
+        // on génère le formulaire en utilisant le gabarit + une instance de l'entité Article
+        $categoryForm = $this->createForm(CategoryType::class, $category);
 
-        //on pré-sauvergarde puis on envoie l'entité dans la base de données
-        $entityManager->persist($category);
-        $entityManager->flush();
+        // on lie le formulaire aux données de POST (aux données envoyées en POST)
+        $categoryForm->handleRequest($request);
 
-        return $this->redirectToRoute("adminCategoryList");
+        // si le formulaire a été posté et qu'il est valide (que tous les champs
+        // obligatoires sont remplis correctement), alors on enregistre l'article
+        // créé en bdd puis on redirige vers la liste des articles
+        if ($categoryForm->isSubmitted() && $categoryForm->isValid()) {
+            $entityManager->persist(category);
+            $entityManager->flush();
+
+            return $this->redirectToRoute("adminCategoryList");
+        }
+
+        return $this->render('admin/admin_insert_category.html.twig', [
+            'categoryForm' => $categoryForm->createView()
+        ]);
+
+
+
     }
 
 

@@ -38,7 +38,7 @@ class AdminArticleController extends AbstractController
             return $this->redirectToRoute('adminArticleList');
         }
 
-        return $this->render('admin/admin_insert.html.twig', [
+        return $this->render('admin/admin_insert_article.html.twig', [
             'articleForm' => $articleForm->createView()
         ]);
 
@@ -48,20 +48,36 @@ class AdminArticleController extends AbstractController
     /**
      * @Route("/admin/articles/update/{id}", name="adminArticleUpdate")
      */
-    public function articleUpdate($id, EntityManagerInterface $entityManager, ArticleRepository $articleRepository)
+    public function articleUpdate(
+        $id,
+        EntityManagerInterface $entityManager,
+        ArticleRepository $articleRepository,
+        Request $request)
     {
         //on va chercher l'article que l'on veut modifier à l'aide son id et de la méthode find
         //en utilisant la wildcard dans l'URL
+        // pour l'insert : $article = new Article();
         $article = $articleRepository->find($id);
 
-        //on modifie le paramètre qui doit être mis à jour, dans ce cas : le titre
-        $article->setTitle('Troisième article');
+        // on génère le formulaire en utilisant le gabarit + une instance de l'entité Article
+        $articleForm = $this->createForm(ArticleType::class, $article);
 
-        //on pré-sauvergarde puis on envoie l'entité dans la base de données
-        $entityManager->persist($article);
-        $entityManager->flush();
+        // on lie le formulaire aux données de POST (aux données envoyées en POST)
+        $articleForm->handleRequest($request);
 
-        return $this->redirectToRoute("adminArticleList");
+        // si le formulaire a été posté et qu'il est valide (que tous les champs
+        // obligatoires sont remplis correctement), alors on enregistre l'article
+        // créé en bdd puis on redirige vers la liste des articles
+        if ($articleForm->isSubmitted() && $articleForm->isValid()) {
+            $entityManager->persist($article);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('adminArticleList');
+        }
+
+        return $this->render('admin/admin_insert_article.html.twig', [
+            'articleForm' => $articleForm->createView()
+        ]);
     }
 
 
