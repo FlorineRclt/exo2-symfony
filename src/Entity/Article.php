@@ -5,6 +5,7 @@ namespace App\Entity;
 
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
@@ -22,12 +23,15 @@ class Article
 
     /**
      * @ORM\Column (type="string")
+     * @Assert\NotBlank(message="Le champ titre n'est pas rempli")
+     * @Assert\Length(min=3, minMessage="Le titre n'est pas assez long")
      */
     private $title;
 
 
     /**
      * @ORM\Column (type="text")
+     * @Assert\NotBlank(message="Le champ contenu n'est pas rempli")
      */
     private $content;
 

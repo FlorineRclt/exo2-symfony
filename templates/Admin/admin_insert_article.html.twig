@@ -7,7 +7,10 @@
     {#    #}{# équivalent de la balise d'ouverture du form #}
     {{ form_start(articleForm) }}
 
+
+
         <div class="form-group">
+            {{ form_errors(articleForm.title) }}
             {{ form_label(articleForm.title, 'Titre', {'label_attr': {'class': 'form_article_title_label'}}) }}
             {{ form_widget(articleForm.title, {'attr': {'class': 'form_article_title-input'}}) }}
         </div>

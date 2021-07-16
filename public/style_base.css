@@ -88,7 +88,6 @@ a {
     color: white;
     padding: 7px;
     margin: 10px auto;
-
 }
 
 
@@ -96,6 +95,7 @@ a {
 #accueil-main {
     text-align: center;
     padding-top: 30vh;
+    padding-bottom: 43vh;
 }
 
 
@@ -147,7 +147,6 @@ a {
     width: 35%;
     margin: 10px;
     line-height: 30px;
-
 }
 
 .page-article {
@@ -207,7 +206,6 @@ a {
 .btn-submit {
     margin-top: 15px;
     margin-bottom: 5vh;
-
 }
 
 .h1-ajout {

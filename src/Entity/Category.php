@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
@@ -21,6 +22,8 @@ class Category
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Le champ titre n'est pas rempli")
+     * @Assert\Length(min=3, minMessage="Le titre n'est pas assez long")
      */
     private $title;
 

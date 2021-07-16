@@ -11,6 +11,7 @@
     {{ form_start(categoryForm) }}
 
         <div class="form-group">
+            {{ form_errors(categoryForm.title) }}
             {{ form_label(categoryForm.title, 'Titre', {'label_attr': {'class': 'form_category_title_label'}}) }}
             {{ form_widget(categoryForm.title, {'attr': {'class': 'form_category_title-input'}}) }}
         </div>
