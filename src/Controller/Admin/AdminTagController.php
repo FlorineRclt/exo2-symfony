@@ -37,6 +37,14 @@ class AdminTagController extends AbstractController
         // si le formulaire à été posté et qu'il est valide (que tous les champs
         // obligatoires sont remplis correctement), alors on enregistre le tag crée dans la bdd
         if ($tagForm->isSubmitted() && $tagForm->isValid()) {
+
+            //permet de stocker en session un message flash,
+            // dans le but de l'afficher sur la page suivante
+            $this->addFlash(
+                'success',
+                'Le tag '. $tag->getTitle().' a bien été crée !'
+            );
+
             $entityManager->persist($tag);
             $entityManager->flush();
 
@@ -71,6 +79,14 @@ class AdminTagController extends AbstractController
         // si le formulaire à été posté et qu'il est valide (que tous les champs
         // obligatoires sont remplis correctement), alors on enregistre le tag crée dans la bdd
         if ($tagForm->isSubmitted() && $tagForm->isValid()) {
+
+            //permet de stocker en session un message flash,
+            // dans le but de l'afficher sur la page suivante
+            $this->addFlash(
+                'success',
+                'Le tag '. $tag->getTitle().' a bien été modifié !'
+            );
+
             $entityManager->persist($tag);
             $entityManager->flush();
 
@@ -91,6 +107,13 @@ class AdminTagController extends AbstractController
         //on va chercher le tag que l'on veut modifier à l'aide son id et de la méthode find
         //en utilisant la wildcard dans l'URL
         $tag = $tagRepository->find($id);
+
+        //permet de stocker en session un message flash,
+        // dans le but de l'afficher sur la page suivante
+        $this->addFlash(
+            'success',
+            'Le tag '. $tag->getTitle().' a bien été supprimé !'
+        );
 
         //on supprime et on traduit l'ordre en requete SQL via le flush
         $entityManager->remove($tag);

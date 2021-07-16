@@ -30,11 +30,22 @@
             <a href="{{ path ('adminCategoryList') }}"><img src="{{ asset('img/menu.png') }}" alt="" class="resp"></a>
         </div>
     </nav>
+
+    {#        Créer un message flash pour annoncer le succès ou les erreurs du crud#}
+    <div>
+        {% for message in app.flashes('success') %}
+            <div class="flash-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+
+
 </header>
 
 
-
-<main class="main">    {# à mettre plutot dans le block main sur chaque twig pour plus de facilités de modifications #}
+{# à mettre plutot dans le block main sur chaque twig pour plus de facilités de modifications #}
+<main class="main">
 {% block main %}{% endblock main %}
 </main>
 

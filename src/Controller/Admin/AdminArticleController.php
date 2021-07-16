@@ -32,6 +32,14 @@ class AdminArticleController extends AbstractController
         // si le formulaire à été posté et qu'il est valide (que tous les champs
         // obligatoires sont remplis correctement), alors on enregistre l'article crée dans la bdd
         if ($articleForm->isSubmitted() && $articleForm->isValid()) {
+
+            //permet de stocker en session un message flash,
+            // dans le but de l'afficher sur la page suivante
+            $this->addFlash(
+                'success',
+                'L\'article '. $article->getTitle().' a bien été créé !'
+            );
+
             $entityManager->persist($article);
             $entityManager->flush();
 
@@ -69,6 +77,14 @@ class AdminArticleController extends AbstractController
         // obligatoires sont remplis correctement), alors on enregistre l'article
         // créé en bdd puis on redirige vers la liste des articles
         if ($articleForm->isSubmitted() && $articleForm->isValid()) {
+
+            //permet de stocker en session un message flash,
+            // dans le but de l'afficher sur la page suivante
+            $this->addFlash(
+                'success',
+                'L\'article '. $article->getTitle().' a bien été modifié !'
+            );
+
             $entityManager->persist($article);
             $entityManager->flush();
 
@@ -89,6 +105,13 @@ class AdminArticleController extends AbstractController
         //on va chercher l'article que l'on veut modifier à l'aide son id et de la méthode find
         //en utilisant la wildcard dans l'URL
         $article = $articleRepository->find($id);
+
+        //permet de stocker en session un message flash,
+        // dans le but de l'afficher sur la page suivante
+        $this->addFlash(
+            'success',
+            'L\'article '. $article->getTitle().' a bien été supprimé !'
+        );
 
         //on supprime et on traduit l'ordre en requete SQL via le flush
         $entityManager->remove($article);

@@ -58,6 +58,16 @@ a {
     font-style: italic;
 }
 
+.flash-success {
+    font-size: 20px;
+    color: white;
+    background-color: lightgreen;
+    width: 100%;
+    padding-top: 100px;
+    padding-bottom: 30px;
+    text-align: center;
+}
+
 
 /***** MAIN *****/
 .main {

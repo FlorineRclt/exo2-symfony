@@ -39,6 +39,14 @@ class AdminCategoryController extends AbstractController
         // si le formulaire à été posté et qu'il est valide (que tous les champs
         // obligatoires sont remplis correctement), alors on enregistre la catégorie créee dans la bdd
         if ($categoryForm->isSubmitted() && $categoryForm->isValid()) {
+
+            //permet de stocker en session un message flash,
+            // dans le but de l'afficher sur la page suivante
+            $this->addFlash(
+                'success',
+                'La catégorie '. $category->getTitle().' a bien été créée !'
+            );
+
             $entityManager->persist($category);
             $entityManager->flush();
 
@@ -74,7 +82,15 @@ class AdminCategoryController extends AbstractController
         // obligatoires sont remplis correctement), alors on enregistre l'article
         // créé en bdd puis on redirige vers la liste des articles
         if ($categoryForm->isSubmitted() && $categoryForm->isValid()) {
-            $entityManager->persist(category);
+
+            //permet de stocker en session un message flash,
+            // dans le but de l'afficher sur la page suivante
+            $this->addFlash(
+                'success',
+                'La catégorie '. $category->getTitle().' a bien été modifiée !'
+            );
+
+            $entityManager->persist($category);
             $entityManager->flush();
 
             return $this->redirectToRoute("adminCategoryList");
@@ -97,6 +113,13 @@ class AdminCategoryController extends AbstractController
         //on va chercher la catégorie que l'on veut modifier à l'aide son id et de la méthode find
         //en utilisant la wildcard dans l'URL
         $category = $categoryRepository->find($id);
+
+        //permet de stocker en session un message flash,
+        // dans le but de l'afficher sur la page suivante
+        $this->addFlash(
+            'success',
+            'La catégorie '. $category->getTitle().' a bien été supprimée !'
+        );
 
         //on supprime et on traduit l'ordre en requete SQL via le flush
         $entityManager->remove($category);
